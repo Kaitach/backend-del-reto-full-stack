@@ -69,6 +69,19 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/*.spec.js",
+      ".main.ts",
+      ".module.ts",
+      "shared/libs/sofka/interface",
+      ".index.ts",
+      ".app.e2e-spec.ts",
+      "Interface.ts",
+      "shared/libs/sofka/bases",
+      ".config.ts",
+      ".config.ts"
+    ]
   }
 }
