@@ -2,10 +2,8 @@ import { IUserrepository } from './repository/Userrepository';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from '../mongoDB/schemas/user.schema';
-import { Deposit, DepositSchema } from './schemas/deposit.schema';
-import { Account, AccountSchema } from './schemas/account.schema';
-import { AccountServiceMongo } from './service/accountmongo.service';
-import { IAccountRepository } from './repository/AccountRepository';
+import { Deposit, DepositSchema } from './schemas';
+import { Account, AccountSchema } from './schemas';;
 import { Transfer, TransferSchema } from './schemas';
 
 @Module({

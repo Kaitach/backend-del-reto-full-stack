@@ -1,16 +1,12 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { NotFoundError, Observable, catchError, from, map, mergeMap, tap, throwIfEmpty } from 'rxjs';
-import {
-  AccountEntity,
 
-} from '../../../../domain';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User, UserDocument } from '../schemas/user.schema';
-import { Model } from 'mongoose';
-import { Account, AccountDocument, RegisterUserDto } from '../../../';
-import { AccountDto } from 'src/infrastructure/utils/DTOS/AccountDto';
-
 import { ObjectId } from 'mongodb';
+import { Model } from 'mongoose';
+import { Observable, from, map, mergeMap, catchError } from 'rxjs';
+import { AccountEntity } from '../../../../domain';
+import { AccountDto } from '../../../';
+import { Account, AccountDocument } from '../schemas';
 
 
 @Injectable()

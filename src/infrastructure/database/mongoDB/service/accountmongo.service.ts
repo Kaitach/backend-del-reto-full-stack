@@ -6,10 +6,9 @@ import {
   AccountService,
   UserEntity,
   UserService,
-} from 'src/domain';
-import { RegisterUserDto } from 'src/infrastructure/utils';
+} from '../../../../domain';
 import { IAccountRepository } from '../repository/AccountRepository';
-import { AccountDto } from 'src/infrastructure/utils/DTOS/AccountDto';
+import { AccountDto } from '../../../';
 
 @Injectable()
 export class AccountServiceMongo implements AccountService {
