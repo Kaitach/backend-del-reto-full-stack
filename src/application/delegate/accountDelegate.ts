@@ -4,8 +4,8 @@ import { IUseCase } from '../useCase/interface/IUseCase.interface';
 import { AccountService, UserService } from 'src/domain';
 import { DeleteAccountUseCase } from '../useCase/accountUseCase/deleteAccount.UseCase';
 import { createAccountUseCase } from '../useCase/accountUseCase/createAccount.UseCase';
-import { FindByIdAccountUseCase } from '../useCase/accountUseCase/findById.useCAse';
 import { FindAllAccountUseCase } from '../useCase/accountUseCase/findAllUserAccount.UseCase';
+import { FindByIdAccountUseCase } from '../useCase';
 
 
 export class AccountDelegate implements IUseCase {
