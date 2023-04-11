@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Observable } from "rxjs";
-import { AccountEntity, AccountService } from "src/domain";
+import { AccountEntity, AccountService } from "../../../domain";
 
 @Injectable()
 export class FindAllAccountUseCase {

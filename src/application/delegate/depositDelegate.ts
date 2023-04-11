@@ -1,12 +1,8 @@
-import { Deposit } from './../../infrastructure/database/mongoDB/schemas/deposit.schema';
-import { UpdateAccountUseCase } from './../useCase/accountUseCase/updateAccount.UseCase';
+
 import { Observable } from 'rxjs';
 import { IUseCase } from '../useCase/interface/IUseCase.interface';
 import { AccountService, UserService } from 'src/domain';
-import { DeleteAccountUseCase } from '../useCase/accountUseCase/deleteAccount.UseCase';
-import { createAccountUseCase } from '../useCase/accountUseCase/createAccount.UseCase';
-import { FindByIdAccountUseCase } from '../useCase/accountUseCase/findById.useCAse';
-import { FindAllAccountUseCase } from '../useCase/accountUseCase/findAllUserAccount.UseCase';
+
 import { DepositSertivce } from 'src/domain/service/deposit-domain.service';
 import { DeleteDepositUseCase } from '../useCase/depositUseCase/deleteDeposit.UseCase';
 import { FindAllDeposittUseCase } from '../useCase/depositUseCase/findAllUserDeposit.UseCase';
