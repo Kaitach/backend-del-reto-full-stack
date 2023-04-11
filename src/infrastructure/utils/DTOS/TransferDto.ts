@@ -1,4 +1,4 @@
-import { transferEntity } from "src/domain";
+import { transferEntity } from "../../../domain";
 
 
 export class TransferDto implements transferEntity{

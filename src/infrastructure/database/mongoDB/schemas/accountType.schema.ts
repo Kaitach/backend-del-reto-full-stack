@@ -6,10 +6,10 @@ export type TransferDocument = Transfer & Document;
 @Schema()
 export class Transfer {
   @Prop({ required: true })
-  senderAccountId: Types.ObjectId;
+  senderAccountId: string
 
   @Prop({ required: true })
-  receiverAccountId: Types.ObjectId;
+  receiverAccountId: string
 
   @Prop({ required: true })
   amount: number;

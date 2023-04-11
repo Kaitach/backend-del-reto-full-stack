@@ -29,23 +29,24 @@ export class IUserrepository  {
     );
   }
 
-
-  updateUser(id: string, user: UserEntity): Observable<UserEntity> {
-    const userDocument = new this.userModule(user);
+  updateUser(id: string, data: RegisterUserDto): Observable<UserEntity> {
     const objectId = new ObjectId(id);
-  
     return from(
       this.userModule.findOneAndUpdate(
         { _id: objectId },
-        { $set: { name: userDocument.name, email: userDocument.email, password: userDocument.password, document: userDocument.document, Account: userDocument.Account } },
+        { $set: data },
         { new: true }
-      )
+      ).exec()
     ).pipe(
       map((doc) => {
-        return new UserEntity(doc.id, doc.name, doc.email, doc.password, doc.document, doc.Account);
+        const { _id, name, email, password, document, Account } = doc;
+        return new UserEntity(_id.toString(), name, email, password, document, Account);
       })
     );
   }
+  
+  
+  
   
   
 

@@ -2,13 +2,14 @@ import { getModelToken } from "@nestjs/mongoose";
 import { TestingModule, Test } from "@nestjs/testing";
 import { Model } from "mongoose";
 import { of, lastValueFrom } from "rxjs";
-import { TransferDto } from "../../../../utils/DTOS/TransferDto"
+import { TransferDto } from "../../../../";
 import { TransferDocument, Transfer } from "../../schemas";
 import { ITransferRepository } from "../TransferRepository";
 
+
 describe('ITransferRepository', () => {
-  let transferRepository: ITransferRepository;
-  let model: Model<TransferDocument>;
+  let repository: ITransferRepository;
+  let transferModel: Model<TransferDocument>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -18,55 +19,47 @@ describe('ITransferRepository', () => {
           provide: getModelToken(Transfer.name),
           useValue: {
             create: jest.fn(),
-            findOne: jest.fn(),
-            updateOne: jest.fn(),
-            deleteOne: jest.fn(),
-            find: jest.fn(),
-            findOneAndUpdate: jest.fn(),
           },
         },
       ],
     }).compile();
-    transferRepository = module.get<ITransferRepository>(ITransferRepository);
-    model = module.get<Model<TransferDocument>>(getModelToken(Transfer.name));
+
+    repository = module.get<ITransferRepository>(ITransferRepository);
+    transferModel = module.get<Model<TransferDocument>>(getModelToken(Transfer.name));
   });
 
   it('should be defined', () => {
-    expect(transferRepository).toBeDefined();
+    expect(repository).toBeDefined();
   });
+ 
+  it('should create a new transfer', async () => {
+    // Arrange
+    const transfer = {
+        id: "1",
+        senderAccountId: '123456789',
+      receiverAccountId: '987654321',
+      amount: 100,
+    };
+    const createdTransfer = {
+      id: '641c70d41964e9445f593bcc',
+      senderAccountId: '123456789',
+      receiverAccountId: '987654321',
+      amount: 100,
+    };
+    const expectedTransfer = {
+      id: '641c70d41964e9445f593bcc',
+      senderAccountId: '123456789',
+      receiverAccountId: '987654321',
+      amount: 100,
+    };
+    jest.spyOn(transferModel, 'create').mockReturnValue(of(createdTransfer) as any);
 
-  describe('createTransfer', () => {
-    it('should create a new transfer', async () => {
-      // Arrange
-      const transferDto = new TransferDto();
-      transferDto.senderAccountId = 'senderId';
-      transferDto.receiverAccountId = 'receiverId';
-      transferDto.amount = 100;
-      transferDto.id = 'transferId';
+    // Act
+    const result$ = repository.createTransfer(transfer);
 
-      const createTransfer = {
-        _id: '641c70d41964e9445f593bcc',
-        senderAccountId: 'senderId',
-        receiverAccountId: 'receiverId',
-        amount: 100,
-        id: 'transferId',
-      };
-
-      const expectedTransfer = {
-        _id: '641c70d41964e9445f593bcc',
-        senderAccountId: 'senderId',
-        receiverAccountId: 'receiverId',
-        amount: 100,
-        id: 'transferId',
-      };
-
-      jest.spyOn(model, 'create').mockReturnValue(of(createTransfer) as any);
-
-      // Act
-      const result = transferRepository.createTransfer(transferDto);
-
-      // Assert
-      expect(await lastValueFrom(result)).toEqual(expectedTransfer);
-    });
+    // Assert
+    expect(await lastValueFrom(result$)).toEqual(expectedTransfer);
   });
+  
+  
 });

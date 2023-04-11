@@ -1,9 +1,9 @@
 import { Body, Controller, Post } from "@nestjs/common";
-import { TransferDelegate } from "src/application/delegate/transferDelegate";
+import { TransferDelegate } from "../../application/delegate/transferDelegate";
 import { TransferServiceMongo } from "../database/mongoDB/service/TransferMongo.service";
 import { AccountServiceMongo } from "../database/mongoDB/service/accountmongo.service";
 import { TransferDto } from "../utils/DTOS/TransferDto";
-import { transferEntity } from "src/domain";
+import { transferEntity } from "../../domain";
 import { Observable } from "rxjs";
 
 @Controller('transfer')

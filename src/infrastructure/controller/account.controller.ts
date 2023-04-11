@@ -5,7 +5,7 @@ import { IUserServiceMongo } from '../database/mongoDB/service/iuserservicemongo
 import { LoginDto } from '../utils/DTOS/loginDto';
 import { UserDelegate } from '../../application/delegate/userDelegate';
 import { AccountServiceMongo } from '../database/mongoDB/service/accountmongo.service';
-import { AccountDelegate } from 'src/application/delegate/accountDelegate';
+import { AccountDelegate } from '../../application/delegate/accountDelegate';
 import { AccountDto } from '../utils/DTOS/AccountDto';
 
 @Controller('account')

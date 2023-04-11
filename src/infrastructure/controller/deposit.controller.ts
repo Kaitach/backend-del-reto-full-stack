@@ -8,7 +8,7 @@ import { AccountServiceMongo } from '../database/mongoDB/service/accountmongo.se
 import { AccountDelegate } from 'src/application/delegate/accountDelegate';
 import { AccountDto } from '../utils/DTOS/AccountDto';
 import { DepositServiceMongo } from '../database/mongoDB/service/DepositMongo.service';
-import { DepositDelegate } from 'src/application/delegate/depositDelegate';
+import { DepositDelegate } from '../../application/delegate/depositDelegate';
 import { DepositDto } from '../utils/DTOS/DepositDto';
 
 @Controller('deposit')
