@@ -69,18 +69,5 @@ export class IAccountRepository {
   }
   
 
-  getAllAccountsByUserId(userId: string): Observable<AccountEntity[]> {
-    return from(this.accountModule.find({ userId })).pipe(
-      map((accountDocuments) =>
-        (accountDocuments as AccountDocument[]).map(
-          (accountDocument) => new AccountEntity(accountDocument.amount, accountDocument.id, accountDocument.type),
-        ),
-      ),
-      catchError((err) => {
-        console.log('Error:', err);
-        throw new Error(`Could not get accounts for user ${userId}.`);
-      }),
-    );
-    
-    }
+
   }

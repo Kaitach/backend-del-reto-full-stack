@@ -6,5 +6,4 @@ export interface AccountService {
   updateAccount(id: string, account: AccountEntity): Observable<AccountEntity>;
   getAccountById(id: string): Observable<AccountEntity>;
   deleteAccountById(id: string): Observable<boolean>;
-  getAllAccountsByUserId(userId: string): Observable<AccountEntity[]>;
 }

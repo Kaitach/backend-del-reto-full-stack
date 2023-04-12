@@ -26,7 +26,5 @@ export class AccountServiceMongo implements AccountService {
     return this.repositori.getAccountById(id)  }
   deleteAccountById(id: string): Observable<boolean> {
     return this.repositori.deleteAccountById(id)  }
-  getAllAccountsByUserId(userId: string): Observable<AccountEntity[]> {
-    return this.repositori.getAllAccountsByUserId(userId)
- }
+ 
 }

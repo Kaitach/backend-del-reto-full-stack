@@ -1,6 +1,5 @@
 
 import { createAccountUseCase } from "../../../application/useCase/accountUseCase/createAccount.UseCase";
-import { FindAllAccountUseCase } from "../../../application/useCase/accountUseCase/findAllUserAccount.UseCase";
 import { FindByIdAccountUseCase } from "../../../application/useCase/accountUseCase/findById.useCAse";
 import { UpdateAccountUseCase } from "../../../application/useCase/accountUseCase/updateAccount.UseCase";
 import { DeleteAccountUseCase,  } from "../../../application/useCase/accountUseCase/deleteAccount.UseCase";
@@ -68,19 +67,7 @@ describe('AccountDelegate', () => {
     });
   });
 
-  describe('getAllUsersAccount', () => {
-    it('should set the delegate to FindAllAccountUseCase', () => {
-      // Arrange
-
-      // Act
-      accountDelegate.getAllUsersAccount();
-
-      // Assert
-      expect(accountDelegate['delegate']).toBeInstanceOf(FindAllAccountUseCase);
-    });
-  });
-
-
+ 
 
 
 
