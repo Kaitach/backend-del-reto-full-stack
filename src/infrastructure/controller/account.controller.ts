@@ -7,6 +7,9 @@ import { UserDelegate } from '../../application/delegate/userDelegate';
 import { AccountServiceMongo } from '../database/mongoDB/service/accountmongo.service';
 import { AccountDelegate } from '../../application/delegate/accountDelegate';
 import { AccountDto } from '../utils/DTOS/AccountDto';
+import { ApiTags } from '@nestjs/swagger';
+
+@ApiTags('AccounController')
 
 @Controller('account')
 export class AccountController {

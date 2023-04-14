@@ -6,6 +6,10 @@ import { LoginDto } from '../utils/DTOS/loginDto';
 import { UserDelegate } from '../../application/delegate/userDelegate';
 import { RegisterUserDto } from '../utils';
 import { SecretGuard } from '../utils/guards/user.guard';
+import { ApiTags } from '@nestjs/swagger';
+
+
+@ApiTags('User Controller')
 
 @Controller('users')
 export class UserController {

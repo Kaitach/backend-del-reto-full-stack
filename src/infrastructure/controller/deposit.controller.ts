@@ -10,6 +10,10 @@ import { AccountDto } from '../utils/DTOS/AccountDto';
 import { DepositServiceMongo } from '../database/mongoDB/service/DepositMongo.service';
 import { DepositDelegate } from '../../application/delegate/depositDelegate';
 import { DepositDto } from '../utils/DTOS/DepositDto';
+import { ApiTags } from '@nestjs/swagger';
+
+
+@ApiTags('DepositController')
 
 @Controller('deposit')
 export class DepositController {

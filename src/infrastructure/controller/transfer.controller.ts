@@ -5,6 +5,10 @@ import { AccountServiceMongo } from "../database/mongoDB/service/accountmongo.se
 import { TransferDto } from "../utils/DTOS/TransferDto";
 import { transferEntity } from "../../domain";
 import { Observable } from "rxjs";
+import { ApiTags } from "@nestjs/swagger";
+
+
+@ApiTags('TransferController')
 
 @Controller('transfer')
 export class TransferController {
