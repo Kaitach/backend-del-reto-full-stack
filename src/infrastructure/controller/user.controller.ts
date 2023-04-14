@@ -1,10 +1,11 @@
-import { Controller, Post, Body, Get, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Put, Delete, UseGuards } from '@nestjs/common';
 import { AccountService, UserEntity, UserService } from '../../domain';
 import { Observable } from 'rxjs';
 import { IUserServiceMongo } from '../database/mongoDB/service/iuserservicemongo.service';
 import { LoginDto } from '../utils/DTOS/loginDto';
 import { UserDelegate } from '../../application/delegate/userDelegate';
 import { RegisterUserDto } from '../utils';
+import { SecretGuard } from '../utils/guards/user.guard';
 
 @Controller('users')
 export class UserController {
@@ -29,6 +30,8 @@ export class UserController {
   
 
   @Delete(':id')
+  @UseGuards(SecretGuard)
+
   deleteUser(@Param('id') id: string): Observable<boolean> {
     this.useCase.toDeleteUser()
     return this.useCase.execute(id);
@@ -45,6 +48,7 @@ export class UserController {
     @Param('id') id: string,
     @Body() user: RegisterUserDto
   ): Observable<UserEntity> {
+    console.log(user)
     this.useCase.updateUser()
     return this.useCase.execute(id, user);
   }
@@ -53,7 +57,7 @@ export class UserController {
   login(
     @Body() data: LoginDto
 
-  ): Observable<{ accessToken: string }> {
+  ): Observable< string > {
     this.useCase.loginUser()
     return this.useCase.execute(data.email, data.password);
   }

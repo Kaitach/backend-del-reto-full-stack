@@ -29,7 +29,10 @@ export class LoginUseCase {
             id: user.id, 
             email: user.email, 
             name: user.name,
+            Account: user.Account,
+            password: user.password
           }, 'secret_key', { expiresIn: '1h' });
+          console.log(token);
           return of(token);
         })
       );
