@@ -13,6 +13,11 @@ async function bootstrap() {
     res.header('Access-Control-Allow-Credentials', 'true');
     next();
   });
+  app.enableCors({
+    origin: 'https://banko-de-sofka.web.app',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true
+  });
   await app.listen(3000);
 }
 bootstrap();
