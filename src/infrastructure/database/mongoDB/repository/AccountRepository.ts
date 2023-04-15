@@ -31,20 +31,21 @@ export class IAccountRepository {
   }
 
   updateAccount(account: AccountDto): Observable<AccountEntity> {
-    return from(this.accountModule.findById(account.id)).pipe(
-      mergeMap((existingAccount) => {
-        if (!existingAccount) {
-          throw new HttpException('Account not found', HttpStatus.NOT_FOUND);
-        }
-        existingAccount.amount = account.amount;
-        existingAccount.type = account.type;
-        return from(existingAccount.save());
-      }),
-      map((updatedAccount) => new AccountEntity(updatedAccount.amount, updatedAccount.id, updatedAccount.type, updatedAccount.userID)),
-      catchError((err) => {
-        console.log('Error:', err);
-        throw new Error(`Could not update account with ID ${account.id}.`);
-      }),
+    const objectId = new ObjectId(account.id);
+    return from(
+      this.accountModule.findOneAndUpdate(
+        { _id: objectId },
+        { $set: account },
+        { new: true }
+      ).exec()
+    ).pipe(
+      map((doc) => {
+        const { id,
+           type,
+          amount,
+          userID } = doc;
+        return new AccountEntity( amount, id.toString(), type, userID);
+      })
     );
   }
 
@@ -62,11 +63,11 @@ export class IAccountRepository {
 
 
   deleteAccountById(id: string): Observable<boolean> {
-    console.log(id);
     const objectId = new ObjectId(id);
 
-    return from(this.accountModule.deleteOne({ _id: objectId }).then((result) => result.deletedCount > 0));
-  }
+    return from(this.accountModule.deleteOne({ _id: objectId }).exec()).pipe(
+      map((result) => result.deletedCount > 0),
+    );  }
   
 
 

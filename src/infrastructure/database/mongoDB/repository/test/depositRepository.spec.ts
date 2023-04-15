@@ -36,9 +36,7 @@ describe('ITransferRepository', () => {
     );
   });
 
-  it('should be defined', () => {
-    expect(repository).toBeDefined();
-  });
+
 
   describe('FindRecipeById', () => {
     it('should find a user by id and return it', async () => {
@@ -161,10 +159,14 @@ describe('ITransferRepository', () => {
     expect(await lastValueFrom(result$)).toEqual(expecteddeposit);
   });
 
-  describe('getAllDepositByUserId', () => {
-    it('should return an array of DepositEntity', async () => {
-      // Arrange
-      const userId = '123';
+  
+  
+
+  
+  describe('findById', () => {
+    it('should return an find PublisherMongo', async () => {
+  
+      const userId = '641c70d41964e9445f593bcc';
       const depositDocuments = [
         {
           userId: userId,
@@ -178,7 +180,7 @@ describe('ITransferRepository', () => {
           reason: 'Test 2',
           accountId: 'acc456',
         },
-      ];
+      ] as DepositEntity[];
       const expectedDeposits = [
         {
           userId: userId,
@@ -193,24 +195,65 @@ describe('ITransferRepository', () => {
           accountId: 'acc456',
         },
       ];
-      const stubFind = jest.fn(
-        () =>
-          new Observable<DepositEntity[]>((subscriber) => {
-            subscriber.next(depositDocuments);
-            subscriber.complete();
-          }),
-      );
       jest
-      .spyOn(documentModel, 'find')
-      .mockReturnValue(stubFind() as any);
-      
-      // Act
-      const result = await lastValueFrom(repository.getAllDepositByUserId(userId));
+        .spyOn(documentModel, 'find')
+        .mockResolvedValue(expectedDeposits as any);
   
-      // Assert
-      expect(result).toEqual(expectedDeposits);
+  
+      const result = repository.getAllDepositByUserId(userId);
+  
+  
+      expect(documentModel.find).toHaveBeenCalledWith(
+        {"userId": "641c70d41964e9445f593bcc"}
+      );
+
+
     });
-  });
   
-  
+    describe('getAllDepositByUserId', () => {
+      let repository: IDepositRepository;
+      let depositModule: Model<DepositDocument>;
+    
+      beforeEach(async () => {
+        const moduleRef: TestingModule = await Test.createTestingModule({
+          providers: [
+            IDepositRepository,
+            {
+              provide: getModelToken('Deposit'),
+              useValue: {
+                find: jest.fn(),
+              },
+            },
+          ],
+        }).compile();
+    
+        repository = moduleRef.get<IDepositRepository>(IDepositRepository);
+        depositModule = moduleRef.get<Model<DepositDocument>>(getModelToken('Deposit'));
+      });
+    
+      it('should return deposits for given userId', async () => {
+        // Arrange
+        const userId = '123';
+        const expectedDeposits = [      {        userId: '123',        amount: 100,        reason: 'Test',        accountId: 'acc123',      },      {        userId: '123',        amount: 50,        reason: 'Test 2',        accountId: 'acc456',      },    ];
+        const depositDocuments = [      {        toObject: jest.fn().mockReturnValue(expectedDeposits[0]),
+          },
+          {
+            toObject: jest.fn().mockReturnValue(expectedDeposits[1]),
+          },
+        ];
+        jest.spyOn(depositModule, 'find').mockResolvedValue(depositDocuments as any);
+    
+        // Act
+        const result = await repository.getAllDepositByUserId(userId).toPromise();
+    
+        // Assert
+        expect(depositModule.find).toHaveBeenCalledWith({ userId });
+        expect(result).toEqual(expectedDeposits);
+        expect(depositDocuments[0].toObject).toHaveBeenCalled();
+        expect(depositDocuments[1].toObject).toHaveBeenCalled();
+      });
+    });
 });
+
+});
+

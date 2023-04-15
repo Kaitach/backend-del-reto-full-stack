@@ -17,16 +17,11 @@ export class createDepositUseCase {
     return this.DepositService.createDeposit(deposit).pipe(
       switchMap(createdDeposit => {
         return this.accountService.getAccountById(createdDeposit.accountId).pipe(
-          map(account => {
-            console.log(account.amount)
-            console.log(createdDeposit.amount)
-
+          map(account => {        
             account.amount += createdDeposit.amount; 
-            console.log(account)
             return account;
           }),
           switchMap(updatedAccount => {
-            console.log(updatedAccount.amount)
             return this.accountService.updateAccount(deposit.accountId, updatedAccount);
           }),
           map(() => createdDeposit)
