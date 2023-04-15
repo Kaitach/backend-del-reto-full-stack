@@ -7,7 +7,7 @@ async function bootstrap() {
 
   // Habilitar CORS para permitir el acceso a la documentación Swagger
   app.enableCors({
-    origin: ['https://banko-de-sofka.web.app', 'http://localhost:4200'],
+    origin: 'https://banko-de-sofka.web.app',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
@@ -26,7 +26,7 @@ async function bootstrap() {
 
   // Configuración adicional del servidor
   app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://banko-de-sofka.web.app, http://localhost:4200');
+    res.header('Access-Control-Allow-Origin', 'https://banko-de-sofka.web.app');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.header('Access-Control-Allow-Credentials', 'true');
